@@ -7,9 +7,11 @@ def bookmarklet
   js = js.gsub(/"/, "'")
     .gsub(/(var|px|0) /, '\1!') # don't remove them later
     .gsub(/ (in|to) /, '!\1!')
+    .gsub(/else if/, 'else!if')
     .gsub(/\s/, '') # remove whitespace
     .gsub(/(var|px|0)!/, '\1 ') # hack the hack
     .gsub(/!(in|to)!/, ' \1 ')
+    .gsub(/else!if/, 'else if')
     .gsub(/\n/, '') # and squeeze newlines!
 
   "(#{js})();"
