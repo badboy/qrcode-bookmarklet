@@ -44,6 +44,9 @@ function()
   urlQuery += "chl=" + encodeURI(data);
 
   div.id = "qrcode_display_image";
+  div.style.color = "black";
+  div.style.fontSize = "12px";
+  div.style.fontFamily = "sans-serif";
   div.style.position = "fixed";
   div.style.top = "50%";
   div.style.left = "50%";
@@ -67,6 +70,9 @@ function()
   p.style.margin = "0";
   p.style.padding = "5px 0 0 0";
   p.style.fontWeight = "bold";
+  p.style.color = "black";
+  p.style.fontSize = "12px";
+  p.style.fontFamily = "sans-serif";
 
   div.appendChild(img);
   div.appendChild(p);
