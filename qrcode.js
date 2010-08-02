@@ -71,6 +71,7 @@ function()
   p.style.padding = "5px 0 0 0";
   p.style.fontWeight = "bold";
   p.style.color = "black";
+  p.style.backgroundColor = "#CCCCCC";
   p.style.fontSize = "12px";
   p.style.fontFamily = "sans-serif";
 
