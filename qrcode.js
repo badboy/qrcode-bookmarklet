@@ -1,85 +1,83 @@
 function()
 {
-  var d = document.getElementById('qrcode_display_image');
-  if(d) d.parentNode.removeChild(d);
+  var q = document.getElementById('qrcode_display_image'), sel, t, s;
+  if(q) d.parentNode.removeChild(q);
 
-  var userSelection;
   if (window.getSelection) {
-    userSelection = window.getSelection();
+    sel = window.getSelection();
   }
   else if (document.selection) {
-    userSelection = document.selection.createRange();
+    sel = document.selection.createRange();
   }
-  var selectedText;
-  if(userSelection) {
-    var selectedText = userSelection;
-    if (userSelection.text) {
-      selectedText = userSelection.text;
+  if(sel) {
+    t = sel;
+    if (sel.text) {
+      t = sel.text;
     }
   }
 
-  if(selectedText && selectedText.toString().length > 0) {
-    data = 'market://search?q=' + encodeURI(selectedText.toString());
+  if(t && t.toString().length > 0) {
+    dt = 'market://search?q=' + encodeURI(t.toString());
   } else {
-    data = location.href;
+    dt = location.href;
   }
 
-  var body = document.getElementsByTagName("body")[0];
-  var div = document.createElement("div");
-  var img = document.createElement("img");
-  var p = document.createElement("p");
-
-  var baseUrl = "http://chart.apis.google.com/chart?";
-  var params = {
-    cht:  "qr",
-    choe: "UTF-8",
-    chld: "L|1",
-    chs: "400x400"
+  var b = document.getElementsByTagName("body")[0],
+      d = document.createElement("div"),
+      i = document.createElement("img"),
+      p = document.createElement("p"),
+      uri = "http://chart.apis.google.com/chart?",
+      prm = {
+        cht:  "qr",
+        choe: "UTF-8",
+        chld: "L|1",
+        chs: "400x400"
+      },
+      qry = "";
+  for(x in prm) {
+    qry += x + "=" + prm[x] + "&";
   };
+  qry += "chl=" + encodeURI(dt);
 
-  var urlQuery = "";
-  for(param in params) {
-    urlQuery += param + "=" + params[param] + "&";
-  };
-  urlQuery += "chl=" + encodeURI(data);
+  d.id = "qrcode_display_image";
+  s = d.style;
+  s.color = "black";
+  s.fontSize = "12px";
+  s.fontFamily = "sans-serif";
+  s.position = "fixed";
+  s.top = "50%";
+  s.left = "50%";
+  s.width = "405px";
+  s.height = "450px";
+  s.margin = "-250px 0 0 -210px";
+  s.border = "3px double #999999";
+  s.padding = "5px";
+  s.backgroundColor = "#CCCCCC";
+  s.textAlign = "center";
+  s.zIndex = "9999";
 
-  div.id = "qrcode_display_image";
-  div.style.color = "black";
-  div.style.fontSize = "12px";
-  div.style.fontFamily = "sans-serif";
-  div.style.position = "fixed";
-  div.style.top = "50%";
-  div.style.left = "50%";
-  div.style.width = "405px";
-  div.style.height = "450px";
-  div.style.margin = "-250px 0 0 -210px";
-  div.style.border = "3px double #999999";
-  div.style.padding = "5px";
-  div.style.backgroundColor = "#CCCCCC";
-  div.style.textAlign = "center";
-  div.style.zIndex = "9999";
+  b.appendChild(d);
 
-  body.appendChild(div);
+  u = uri + qry;
+  i.src = u;
+  i.alt = u;
+  i.title = "Click to close.";
 
-  url = baseUrl + urlQuery;
-  img.src = url;
-  img.alt = url;
-  img.title = "Click to close.";
+  p.innerHTML = dt;
+  s = p.style;
+  s.margin = "0";
+  s.padding = "5px 0 0 0";
+  s.fontWeight = "bold";
+  s.color = "black";
+  s.backgroundColor = "#CCCCCC";
+  s.fontSize = "12px";
+  s.fontFamily = "sans-serif";
 
-  p.innerHTML = data;
-  p.style.margin = "0";
-  p.style.padding = "5px 0 0 0";
-  p.style.fontWeight = "bold";
-  p.style.color = "black";
-  p.style.backgroundColor = "#CCCCCC";
-  p.style.fontSize = "12px";
-  p.style.fontFamily = "sans-serif";
+  d.appendChild(i);
+  d.appendChild(p);
 
-  div.appendChild(img);
-  div.appendChild(p);
-
-  img.onclick = function() {
-    this.parentNode.parentNode.removeChild(div);
+  i.onclick = function() {
+    this.parentNode.parentNode.removeChild(d);
   };
 }
 
