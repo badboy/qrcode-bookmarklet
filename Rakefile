@@ -51,7 +51,7 @@ file DEMO => [JSFILE, LAYOUT] do
   File.open(DEMO, 'w') do |f|
     f.write layout.gsub(/{{code}}/, bookmarklet)
   end
-  puts "done"
+  puts "done (wrote #{bookmarklet.size} bytes)"
 end
 
 task :default => :build
